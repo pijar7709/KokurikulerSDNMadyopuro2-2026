@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asesmen Kokurikuler SD - Aku Anak Hebat</title>
+<style>
+:root{--navy:#183b56;--blue:#286a8a;--teal:#2b8a83;--bg:#f3f6f8;--line:#dce4e9;--text:#243746;--muted:#667985;--white:#fff;--gold:#f1b84b;--red:#b94b4b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Arial,Helvetica,sans-serif}
+header{background:linear-gradient(120deg,var(--navy),var(--blue));color:white;padding:22px 26px}
+header h1{margin:0 0 5px;font-size:23px}header p{margin:0;color:#e5f0f5}
+.wrap{max-width:1500px;margin:auto;padding:18px}
+.toolbar,.panel,.stat{background:white;border:1px solid var(--line);border-radius:12px}
+.toolbar{padding:14px;display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:14px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:145px}.field label{font-size:12px;color:var(--muted);font-weight:bold}
+input,select,textarea{font:inherit;border:1px solid #cbd6dd;border-radius:7px;padding:9px;background:white;color:var(--text);min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid #b6d8e8;border-color:var(--blue)}
+button{border:0;border-radius:7px;padding:10px 13px;font-weight:bold;cursor:pointer;background:var(--blue);color:white}
+button:hover{filter:brightness(.94)}button.secondary{background:#e8eff3;color:var(--navy)}button.green{background:var(--teal)}button.red{background:#a94a4a}button.small{padding:6px 9px;font-size:12px}
+nav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+nav button{background:#e4ebef;color:var(--navy)}nav button.active{background:var(--navy);color:white}
+.panel{padding:16px;margin-bottom:14px}.panel h2{font-size:18px;margin:0 0 12px}.panel h3{font-size:15px;margin:18px 0 8px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.stat{padding:14px}.stat .num{font-size:25px;font-weight:bold;color:var(--navy)}.stat .cap{color:var(--muted);font-size:12px}
+.note{padding:10px 12px;background:#edf5f8;border-left:4px solid var(--blue);border-radius:6px;color:#36566a;margin:10px 0}
+.warning{background:#fff6e5;border-left-color:var(--gold)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:8px;max-width:100%}
+table{border-collapse:separate;border-spacing:0;width:100%;min-width:900px;background:white}
+th,td{padding:8px;border-bottom:1px solid var(--line);border-right:1px solid #edf0f2;text-align:center;white-space:nowrap}
+th{background:#edf3f6;color:#28495d;position:sticky;top:0;z-index:2;font-size:12px}
+td:first-child,th:first-child{position:sticky;left:0;background:#f8fafb;z-index:1}
+th:first-child{z-index:3}td.name,th.name{text-align:left;min-width:190px}
+td input.score{width:58px;text-align:center;padding:7px}
+td input.nameinput{width:190px}
+.grouphead{background:#dceaf0;font-weight:bold;color:#183b56}
+.smallmuted{font-size:12px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.hidden{display:none!important}.actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-block;border-radius:20px;padding:4px 9px;background:#edf3f6;color:#35566a;font-size:12px}
+.good{color:#167653;font-weight:bold}.bad{color:#a34b36;font-weight:bold}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.card{border:1px solid var(--line);border-radius:9px;padding:12px}.card b{display:block;margin-bottom:5px}
+textarea{width:100%;min-height:65px}
+footer{padding:15px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:760px){header{padding:18px}.wrap{padding:10px}.stats{grid-template-columns:repeat(2,1fr)}.grid2,.cards{grid-template-columns:1fr}.field{flex:1}.toolbar{align-items:stretch}}
+@media print{header,nav,.toolbar,.no-print,footer{display:none!important}body{background:white}.wrap{padding:0}.panel{border:0;padding:0}.table-wrap{overflow:visible;border:0}table{min-width:0;font-size:9px}th,td{padding:4px;white-space:normal}td:first-child,th:first-child{position:static}}
+</style>
+</head>
+<body>
+<header>
+ <h1>ASESMEN KOKURIKULER SD</h1>
+ <p><b>Aku Anak Hebat</b> · Keimanan &amp; Ketakwaan · Kemandirian · Kesehatan</p>
+</header>
+<div class="wrap">
+ <section class="toolbar no-print">
+  <div class="field"><label for="school">Nama Sekolah</label><input id="school" placeholder="Nama sekolah"></div>
+  <div class="field"><label for="year">Tahun Ajaran</label><input id="year" value="2026/2027"></div>
+  <div class="field"><label for="classSelect">Pilih Kelas</label><select id="classSelect"><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3">Kelas 3</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6">Kelas 6</option></select></div>
+  <div class="field"><label for="period">Periode Asesmen</label><input id="period" placeholder="Contoh: Semester 1"></div>
+  <div class="actions">
+   <button class="green" onclick="saveAll()">Simpan</button>
+   <button class="secondary" onclick="exportExcel()">Unduh Excel</button>
+   <button class="secondary" onclick="document.getElementById('backupFile').click()">Pulihkan Cadangan</button>
+   <input id="backupFile" type="file" accept=".json" class="hidden" onchange="restoreBackup(event)">
+  </div>
+ </section>
+ <nav class="no-print">
+  <button class="active" data-tab="dashboard" onclick="showTab('dashboard',this)">Dashboard</button>
+  <button data-tab="students" onclick="showTab('students',this)">Data Siswa</button>
+  <button data-tab="input" onclick="showTab('input',this)">Input Asesmen</button>
+  <button data-tab="recap" onclick="showTab('recap',this)">Rekap Nilai</button>
+  <button data-tab="backup" onclick="showTab('backup',this)">Cadangan &amp; Petunjuk</button>
+ </nav>
+
+ <main id="dashboard" class="tab">
+  <div class="stats">
+   <div class="stat"><div class="num" id="statStudents">0</div><div class="cap">Jumlah peserta didik</div></div>
+   <div class="stat"><div class="num" id="statComplete">0</div><div class="cap">Asesmen lengkap</div></div>
+   <div class="stat"><div class="num" id="statPending">0</div><div class="cap">Belum lengkap</div></div>
+   <div class="stat"><div class="num">120 JP</div><div class="cap">Alokasi program</div></div>
+  </div>
+  <section class="panel">
+   <h2>Ringkasan kelas <span id="dashClass">1</span></h2>
+   <p id="dashSchool">Nama sekolah belum diisi.</p>
+   <div class="note">Pilih kelas pada bagian atas. Indikator observasi, unjuk kerja, dan produk akan menyesuaikan kelas yang dipilih. Masukkan nilai 1–4; kolom yang belum dinilai dibiarkan kosong.</div>
+   <div class="cards">
+    <div class="card"><b>1. Keimanan &amp; Ketakwaan</b><span class="smallmuted">4 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
+    <div class="card"><b>2. Kemandirian</b><span class="smallmuted">4 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
+    <div class="card"><b>3. Kesehatan</b><span class="smallmuted">4 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
+   </div>
+  </section>
+  <section class="panel"><h2>Petunjuk singkat</h2>
+   <ol>
+    <li>Isi nama sekolah, tahun ajaran, periode, dan pilih kelas.</li>
+    <li>Buka menu <b>Data Siswa</b> untuk menambahkan siswa atau mengimpor Excel.</li>
+    <li>Buka <b>Input Asesmen</b> untuk mengisi skor observasi, unjuk kerja, dan produk.</li>
+    <li>Buka <b>Rekap Nilai</b> untuk melihat hasil dan catatan tindak lanjut.</li>
+    <li>Unduh Excel secara berkala sebagai cadangan dan dokumen pelaporan.</li>
+   </ol>
+  </section>
+ </main>
+
+ <main id="students" class="tab hidden">
+  <section class="panel">
+   <h2>Data Peserta Didik – Kelas <span class="classLabel"></span></h2>
+   <div class="actions no-print">
+    <input id="newNis" placeholder="NIS/NISN (opsional)" style="max-width:210px">
+    <input id="newName" placeholder="Nama peserta didik" style="max-width:260px">
+    <button onclick="addStudent()">+ Tambah Siswa</button>
+    <button class="secondary" onclick="document.getElementById('studentExcel').click()">Impor Excel</button>
+    <input id="studentExcel" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importStudents(event)">
+    <button class="secondary" onclick="downloadTemplate()">Unduh Template Siswa</button>
+   </div>
+   <p class="smallmuted">Template Excel berisi kolom: No, NIS/NISN, Nama Peserta Didik. Data diimpor ke kelas yang sedang dipilih.</p>
+   <div class="table-wrap"><table><thead><tr><th>No</th><th>NIS/NISN</th><th class="name">Nama Peserta Didik</th><th class="no-print">Aksi</th></tr></thead><tbody id="studentRows"></tbody></table></div>
+  </section>
+ </main>
+
+ <main id="input" class="tab hidden">
+  <section class="panel">
+   <h2>Input Asesmen Satu Kelas – Kelas <span class="classLabel"></span></h2>
+   <div class="note">Masukkan skor 1, 2, 3, atau 4. Tekan Tab untuk berpindah kolom. Kolom kosong berarti belum dinilai. Gunakan layar komputer dan geser tabel ke samping untuk melihat semua indikator.</div>
+   <div class="actions no-print" style="margin-bottom:10px">
+    <input id="searchStudent" placeholder="Cari nama siswa..." oninput="renderInput()" style="max-width:250px">
+    <select id="completionFilter" onchange="renderInput()"><option value="all">Semua siswa</option><option value="incomplete">Belum lengkap</option><option value="complete">Sudah lengkap</option></select>
+    <button class="green" onclick="saveAll()">Simpan Nilai</button>
+   </div>
+   <div id="inputTable" class="table-wrap"></div>
+  </section>
+  <section class="panel">
+   <h2>Catatan dan Tindak Lanjut</h2>
+   <p class="smallmuted">Catatan dapat diisi per siswa melalui tombol detail pada menu Rekap Nilai.</p>
+  </section>
+ </main>
+
+ <main id="recap" class="tab hidden">
+  <section class="panel">
+   <h2>Rekap Nilai – Kelas <span class="classLabel"></span></h2>
+   <div class="actions no-print" style="margin-bottom:10px">
+    <input id="searchRecap" placeholder="Cari nama siswa..." oninput="renderRecap()" style="max-width:250px">
+    <button onclick="window.print()" class="secondary">Cetak Rekap</button>
+    <button onclick="exportExcel()" class="green">Unduh Excel</button>
+   </div>
+   <div class="table-wrap"><table><thead><tr><th>No</th><th class="name">Nama</th><th>Keimanan</th><th>Kemandirian</th><th>Kesehatan</th><th>Observasi</th><th>Unjuk Kerja</th><th>Produk</th><th>Status</th><th class="no-print">Detail</th></tr></thead><tbody id="recapRows"></tbody></table></div>
+   <p class="smallmuted">Nilai karakter utama diambil dari observasi guru. Unjuk kerja dan produk ditampilkan sebagai bukti pendukung, bukan digabungkan otomatis ke nilai karakter.</p>
+  </section>
+  <section id="detailPanel" class="panel hidden">
+   <div class="actions" style="justify-content:space-between"><h2 id="detailTitle">Detail Peserta Didik</h2><button class="secondary no-print" onclick="closeDetail()">Tutup</button></div>
+   <div id="detailContent"></div>
+  </section>
+ </main>
+
+ <main id="backup" class="tab hidden">
+  <section class="panel">
+   <h2>Cadangan Data</h2>
+   <p>Data yang dimasukkan tersimpan di penyimpanan lokal browser pada perangkat ini. Untuk memindahkan ke perangkat lain atau mencegah kehilangan data, unduh cadangan JSON dan file Excel secara berkala.</p>
+   <div class="actions no-print">
+    <button class="green" onclick="downloadBackup()">Unduh Cadangan JSON</button>
+    <button class="secondary" onclick="document.getElementById('backupFile').click()">Pulihkan dari JSON</button>
+    <button class="red" onclick="clearCurrentClass()">Hapus Data Kelas Ini</button>
+   </div>
+   <div class="note warning"><b>Perhatian:</b> localStorage bukan database online dan tidak otomatis tersinkron antarperangkat. Jangan menghapus data browser sebelum membuat cadangan. File Excel diperbarui melalui proses ekspor, bukan otomatis setiap kali nilai diketik.</div>
+  </section>
+  <section class="panel">
+   <h2>Skala Penilaian</h2>
+   <table style="min-width:0"><thead><tr><th>Skor</th><th>Predikat</th><th>Deskripsi</th></tr></thead><tbody>
+    <tr><td>4</td><td>Sangat Berkembang</td><td>Mandiri, konsisten, dan tanpa diingatkan.</td></tr>
+    <tr><td>3</td><td>Berkembang Sesuai Harapan</td><td>Mampu dengan sedikit arahan atau pengingat.</td></tr>
+    <tr><td>2</td><td>Mulai Berkembang</td><td>Masih memerlukan arahan atau bantuan.</td></tr>
+    <tr><td>1</td><td>Belum Berkembang</td><td>Masih memerlukan pendampingan intensif.</td></tr>
+   </tbody></table>
+   <p class="smallmuted">Kategori nilai persentase: 86–100 Sangat Berkembang; 76–85 Berkembang Sesuai Harapan; 66–75 Mulai Berkembang; 0–65 Belum Berkembang.</p>
+  </section>
+ </main>
+</div>
+<footer>Asesmen Kokurikuler SD · Data disimpan pada browser yang digunakan.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+const indicators = {
+1:[
+["Mengikuti kegiatan ibadah sesuai agama/keyakinan dengan tertib.","Menunjukkan rasa syukur melalui ucapan dan tindakan sederhana.","Menunjukkan perilaku baik kepada guru dan teman.","Menghargai dan menjaga ciptaan Tuhan."],
+["Berusaha melakukan tugas sederhana sendiri.","Mampu merapikan dan menjaga barang pribadi.","Menyelesaikan tugas sederhana.","Mencoba terlebih dahulu sebelum meminta bantuan."],
+["Menjaga kebersihan diri.","Mempraktikkan kebiasaan hidup bersih dan sehat.","Mengikuti aktivitas fisik dengan baik.","Menjaga kebersihan lingkungan."]
+],
+2:[
+["Mengikuti kegiatan ibadah sesuai agama/keyakinan dengan tertib.","Menunjukkan rasa syukur melalui ucapan dan tindakan.","Menunjukkan perilaku santun dan menghargai orang lain.","Menunjukkan kepedulian terhadap ciptaan Tuhan."],
+["Menyiapkan perlengkapan sendiri.","Menyelesaikan tugas tanpa selalu bergantung pada orang lain.","Menjaga dan merapikan barang milik sendiri.","Berusaha terlebih dahulu sebelum meminta bantuan."],
+["Menjaga kebersihan diri.","Menerapkan kebiasaan hidup bersih dan sehat.","Mengikuti aktivitas fisik dengan baik.","Menjaga kebersihan lingkungan."]
+],
+3:[
+["Mengikuti kegiatan ibadah sesuai agama/keyakinan dengan tertib.","Menunjukkan rasa syukur dalam perkataan dan perbuatan.","Membiasakan perilaku jujur, santun, dan menghargai orang lain.","Menunjukkan kepedulian terhadap lingkungan sebagai ciptaan Tuhan."],
+["Menyiapkan dan mengatur keperluan sendiri.","Melaksanakan tugas sampai selesai dengan tanggung jawab.","Menjaga barang pribadi dan fasilitas bersama.","Berani mencoba dan mencari solusi sebelum meminta bantuan."],
+["Menjaga kebersihan diri secara sadar.","Memilih dan menerapkan kebiasaan hidup sehat.","Aktif mengikuti kegiatan fisik.","Berperan dalam menjaga kebersihan lingkungan."]
+],
+4:[
+["Melaksanakan kegiatan ibadah sesuai agama/keyakinan dengan kesadaran.","Menunjukkan rasa syukur melalui perilaku positif.","Menunjukkan kejujuran, tanggung jawab, dan sikap menghargai.","Menunjukkan kepedulian terhadap sesama dan lingkungan."],
+["Merencanakan kebutuhan dan tugas pribadi.","Menyelesaikan tugas dengan tanggung jawab.","Mengelola dan menjaga barang pribadi.","Mampu mengambil keputusan sederhana secara mandiri."],
+["Menjaga kebersihan dan kesehatan diri.","Menerapkan pola hidup sehat dalam kegiatan sehari-hari.","Berpartisipasi aktif dalam kegiatan fisik.","Bertanggung jawab terhadap kebersihan lingkungan."]
+],
+5:[
+["Melaksanakan kegiatan ibadah sesuai agama/keyakinan dengan kesadaran dan tanggung jawab.","Menunjukkan rasa syukur melalui perilaku nyata.","Menunjukkan integritas, kesantunan, dan kepedulian.","Menunjukkan tanggung jawab dalam menjaga lingkungan dan sesama."],
+["Mampu merencanakan dan mengatur tugas pribadi.","Menyelesaikan tugas secara konsisten dan bertanggung jawab.","Mampu mengatur waktu dan perlengkapan.","Mampu mengambil keputusan dan menyelesaikan masalah sederhana secara mandiri."],
+["Memahami dan menerapkan pola hidup bersih dan sehat.","Mampu memilih kebiasaan yang mendukung kesehatan.","Aktif dan bertanggung jawab dalam kegiatan fisik.","Berinisiatif menjaga kebersihan lingkungan."]
+],
+6:[
+["Melaksanakan kegiatan ibadah sesuai agama/keyakinan secara sadar dan bertanggung jawab.","Menerapkan rasa syukur dalam tindakan nyata.","Menunjukkan integritas, tanggung jawab, dan sikap menghargai.","Menunjukkan kepedulian dan menjadi teladan positif bagi lingkungan sekitar."],
+["Mampu merencanakan kebutuhan dan kegiatan secara mandiri.","Menyelesaikan tugas dengan tanggung jawab dan konsisten.","Mampu mengatur waktu, perlengkapan, dan prioritas.","Mampu mengambil keputusan dan menyelesaikan masalah secara mandiri."],
+["Menerapkan pola hidup bersih dan sehat secara konsisten.","Mampu memilih tindakan yang mendukung kesehatan diri.","Menunjukkan kesadaran menjaga kebugaran tubuh.","Berinisiatif dan bertanggung jawab dalam menjaga lingkungan sehat."]
+]};
+const labels=["Keimanan & Ketakwaan","Kemandirian","Kesehatan"];
+const performances={
+1:["Mempraktikkan kegiatan ibadah/doa sesuai agama/keyakinan dan menunjukkan perilaku baik.","Menyiapkan perlengkapan, melaksanakan tugas, dan merapikan kembali secara mandiri.","Mempraktikkan cuci tangan, menjaga kebersihan, dan melakukan aktivitas fisik."],
+2:["Mempraktikkan kegiatan ibadah/doa sesuai agama/keyakinan dan menunjukkan perilaku santun.","Menyiapkan perlengkapan, melaksanakan tugas, dan merapikan kembali secara mandiri.","Mempraktikkan cuci tangan, menjaga kebersihan, dan melakukan aktivitas fisik."],
+3:["Mempraktikkan ibadah/doa sesuai agama/keyakinan dan menunjukkan perilaku santun.","Melaksanakan Misi Aku Bisa Sendiri dari persiapan sampai penyelesaian tugas.","Mempraktikkan perilaku hidup bersih, sehat, dan aktif bergerak."],
+4:["Menunjukkan praktik ibadah/doa dan perilaku yang mencerminkan nilai keimanan.","Merencanakan dan melaksanakan tugas pribadi tanpa bergantung pada orang lain.","Mempraktikkan pola hidup sehat dan berperan dalam kegiatan kebersihan lingkungan."],
+5:["Menunjukkan praktik ibadah dan aksi nyata yang mencerminkan nilai keimanan.","Merencanakan, melaksanakan, dan mengevaluasi tugas/misi secara mandiri.","Melaksanakan aksi hidup sehat dan menjaga lingkungan secara bertanggung jawab."],
+6:["Melaksanakan aksi nyata yang mencerminkan nilai keimanan, tanggung jawab, dan kepedulian.","Merencanakan, melaksanakan, mengatasi kendala, dan mengevaluasi misi secara mandiri.","Merancang dan melaksanakan aksi hidup sehat serta menjaga lingkungan sehat."]};
+const products={
+1:["Gambar “Aku Bersyukur”.","Paspor “Misi Aku Bisa Sendiri”.","Poster “Aku Anak Sehat”."],
+2:["Gambar/kartu “Aku Bersyukur”.","Paspor “Misi Aku Bisa Sendiri”.","Poster “Aku Anak Sehat”."],
+3:["Kartu “Perbuatan Baikku”.","Paspor “Misi Mandiri”.","Poster “Pilih Hidup Sehat”."],
+4:["Jurnal/kartu aksi “Kebaikan yang Aku Lakukan”.","Rencana “Misi Mandiriku”.","Kampanye/poster “Hidup Sehat”."],
+5:["Portofolio “Aksi Kebaikanku”.","Rencana dan laporan “Misi Mandiri”.","Media kampanye “Hidup Sehat”."],
+6:["Portofolio “Aksi Nyata Nilai Kebaikan”.","Rencana dan laporan “Proyek Mandiriku”.","Media kampanye/program sederhana “Sekolah Sehat”."]};
+const STORE="akuAnakHebatAssessment_v1";
+let db=loadDB(), currentClass="1";
+function loadDB(){try{return JSON.parse(localStorage.getItem(STORE))||{meta:{school:"",year:"2026/2027",period:""},classes:{}}}catch(e){return {meta:{school:"",year:"2026/2027",period:""},classes:{}}}}
+function clsData(){if(!db.classes[currentClass])db.classes[currentClass]={students:[]};return db.classes[currentClass]}
+function blankScores(){return {obs:Array(12).fill(""),perf:Array(3).fill(""),prod:Array(3).fill(""),notes:"",follow:""}}
+function saveAll(show=true){
+ db.meta={school:document.getElementById("school").value,year:document.getElementById("year").value,period:document.getElementById("period").value};
+ try{localStorage.setItem(STORE,JSON.stringify(db));if(show)alert("Data berhasil disimpan pada browser ini.");updateDashboard()}catch(e){alert("Penyimpanan gagal. Kapasitas browser mungkin penuh. Segera unduh cadangan.");}
+}
+function init(){
+ document.getElementById("school").value=db.meta.school||"";
+ document.getElementById("year").value=db.meta.year||"2026/2027";
+ document.getElementById("period").value=db.meta.period||"";
+ document.getElementById("classSelect").addEventListener("change",e=>{currentClass=e.target.value;refresh();});
+ refresh();
+}
+function showTab(id,btn){document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");if(id==="input")renderInput();if(id==="recap")renderRecap();if(id==="students")renderStudents();}
+function refresh(){document.querySelectorAll(".classLabel").forEach(x=>x.textContent=currentClass);document.getElementById("dashClass").textContent=currentClass;document.getElementById("dashSchool").textContent=db.meta.school||"Nama sekolah belum diisi.";renderStudents();renderInput();renderRecap();updateDashboard();}
+function addStudent(){let name=document.getElementById("newName").value.trim(),nis=document.getElementById("newNis").value.trim();if(!name){alert("Masukkan nama peserta didik.");return;}clsData().students.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),nis,name,...blankScores()});document.getElementById("newName").value="";document.getElementById("newNis").value="";saveAll(false);refresh();}
+function renderStudents(){let tb=document.getElementById("studentRows");if(!tb)return;tb.innerHTML="";clsData().students.forEach((s,i)=>{let tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td><input value="${esc(s.nis||"")}" aria-label="NIS" onchange="updateStudent('${s.id}','nis',this.value)"></td><td class="name"><input class="nameinput" value="${esc(s.name)}" onchange="updateStudent('${s.id}','name',this.value)"></td><td class="no-print"><button class="small red" onclick="deleteStudent('${s.id}')">Hapus</button></td>`;tb.appendChild(tr)});if(!clsData().students.length)tb.innerHTML='<tr><td colspan="4">Belum ada data siswa. Tambahkan siswa atau impor dari Excel.</td></tr>';}
+function updateStudent(id,key,val){let s=clsData().students.find(x=>x.id===id);if(s){s[key]=val;saveAll(false);}}
+function deleteStudent(id){if(!confirm("Hapus siswa beserta seluruh nilai dan catatannya?"))return;clsData().students=clsData().students.filter(s=>s.id!==id);saveAll(false);refresh();}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function status(s){let all=[...(s.obs||[]),...(s.perf||[]),...(s.prod||[])];return all.length===18&&all.every(v=>v!==""&&v!==null&&v!==undefined);}
+function scoreInput(sid,type,index,val){let s=clsData().students.find(x=>x.id===sid);if(!s)return;let n=val===""?"":Number(val);if(n!==""&&(!Number.isInteger(n)||n<1||n>4)){alert("Nilai hanya boleh 1, 2, 3, atau 4.");renderInput();return;}s[type][index]=n;localStorage.setItem(STORE,JSON.stringify(db));updateDashboard();}
+function renderInput(){
+ let host=document.getElementById("inputTable");if(!host)return;let q=(document.getElementById("searchStudent")?.value||"").toLowerCase(),f=document.getElementById("completionFilter")?.value||"all";
+ let students=clsData().students.filter(s=>s.name.toLowerCase().includes(q)).filter(s=>f==="all"||(f==="complete"?status(s):!status(s)));
+ let h='<table><thead><tr><th rowspan="2">No</th><th class="name" rowspan="2">Nama Peserta Didik</th><th class="grouphead" colspan="12">OBSERVASI GURU</th><th class="grouphead" colspan="3">UNJUK KERJA</th><th class="grouphead" colspan="3">PRODUK</th></tr><tr>';
+ labels.forEach((l,g)=>{for(let i=0;i<4;i++)h+=`<th title="${esc(indicators[currentClass][g][i])}">O${g*4+i+1}<br><span class="smallmuted">${["I","II","III","IV"][i]}</span></th>`});
+ for(let i=0;i<3;i++)h+=`<th title="${esc(performances[currentClass][i])}">UK${i+1}</th>`;
+ for(let i=0;i<3;i++)h+=`<th title="${esc(products[currentClass][i])}">P${i+1}</th>`;
+ h+='</tr></thead><tbody>';
+ students.forEach((s,idx)=>{h+=`<tr><td>${idx+1}</td><td class="name">${esc(s.name)}</td>`;
+ for(let i=0;i<12;i++)h+=scoreCell(s,"obs",i);
+ for(let i=0;i<3;i++)h+=scoreCell(s,"perf",i);
+ for(let i=0;i<3;i++)h+=scoreCell(s,"prod",i);
+ h+='</tr>'});
+ if(!students.length)h+='<tr><td colspan="20">Tidak ada siswa yang sesuai. Periksa data siswa atau filter.</td></tr>';
+ h+='</tbody></table>';host.innerHTML=h;
+}
+function scoreCell(s,type,i){let v=s[type]?.[i]??"";return `<td><input class="score" type="number" min="1" max="4" step="1" inputmode="numeric" value="${v}" aria-label="${type} ${i+1} ${esc(s.name)}" onchange="scoreInput('${s.id}','${type}',${i},this.value)" onblur="saveAll(false)"></td>`;}
+function avg(arr){let a=(arr||[]).filter(x=>x!==""&&x!==null&&x!==undefined).map(Number);return a.length?Math.round((a.reduce((p,c)=>p+c,0)/(a.length*4))*100):null;}
+function category(v){if(v===null)return "Belum dinilai";if(v>=86)return "Sangat Berkembang";if(v>=76)return "Berkembang Sesuai Harapan";if(v>=66)return "Mulai Berkembang";return "Belum Berkembang";}
+function recap(s){let per=[avg(s.obs.slice(0,4)),avg(s.obs.slice(4,8)),avg(s.obs.slice(8,12))];return {per,obs:avg(s.obs),perf:avg(s.perf),prod:avg(s.prod)}}
+function renderRecap(){let tb=document.getElementById("recapRows");if(!tb)return;let q=(document.getElementById("searchRecap")?.value||"").toLowerCase();tb.innerHTML="";clsData().students.filter(s=>s.name.toLowerCase().includes(q)).forEach((s,i)=>{let r=recap(s),tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td class="name">${esc(s.name)}</td>${r.per.map(v=>`<td>${v??"—"}</td>`).join("")}<td>${r.obs??"—"}</td><td>${r.perf??"—"}</td><td>${r.prod??"—"}</td><td>${status(s)?'<span class="good">Lengkap</span>':'<span class="bad">Belum lengkap</span>'}</td><td class="no-print"><button class="small" onclick="showDetail('${s.id}')">Detail</button></td>`;tb.appendChild(tr)});if(!tb.children.length)tb.innerHTML='<tr><td colspan="10">Belum ada data siswa.</td></tr>';}
+function updateDashboard(){let a=clsData().students,done=a.filter(status).length;document.getElementById("statStudents").textContent=a.length;document.getElementById("statComplete").textContent=done;document.getElementById("statPending").textContent=a.length-done;}
+function showDetail(id){let s=clsData().students.find(x=>x.id===id);if(!s)return;let r=recap(s);document.getElementById("detailTitle").textContent="Detail: "+s.name;let h=`<p><b>Kelas:</b> ${currentClass} · <b>NIS/NISN:</b> ${esc(s.nis||"-")}</p><h3>Nilai karakter berdasarkan observasi</h3><table style="min-width:0"><tr><th>Karakter</th><th>Nilai</th><th>Kategori</th></tr>${labels.map((l,i)=>`<tr><td>${l}</td><td>${r.per[i]??"Belum lengkap"}</td><td>${category(r.per[i])}</td></tr>`).join("")}</table><h3>Rincian observasi</h3>`;
+ labels.forEach((l,g)=>{h+=`<h3>${l}</h3><table style="min-width:0"><tr><th>Indikator</th><th>Skor</th></tr>${indicators[currentClass][g].map((v,i)=>`<tr><td style="text-align:left;white-space:normal">${esc(v)}</td><td>${s.obs[g*4+i]||"—"}</td></tr>`).join("")}</table>`});
+ h+='<h3>Unjuk kerja dan produk</h3><table style="min-width:0"><tr><th>Komponen</th><th>Deskripsi</th><th>Skor</th></tr>';
+ for(let i=0;i<3;i++)h+=`<tr><td>Unjuk kerja – ${labels[i]}</td><td style="text-align:left;white-space:normal">${esc(performances[currentClass][i])}</td><td>${s.perf[i]||"—"}</td></tr><tr><td>Produk – ${labels[i]}</td><td style="text-align:left;white-space:normal">${esc(products[currentClass][i])}</td><td>${s.prod[i]||"—"}</td></tr>`;
+ h+=`</table><h3>Catatan guru</h3><textarea id="note_${id}" placeholder="Kekuatan atau perkembangan positif siswa...">${esc(s.notes||"")}</textarea><h3>Tindak lanjut</h3><textarea id="follow_${id}" placeholder="Rencana pendampingan atau penguatan...">${esc(s.follow||"")}</textarea><div class="actions no-print" style="margin-top:10px"><button onclick="saveNotes('${id}')">Simpan Catatan</button><button class="secondary" onclick="printDetail('${id}')">Cetak Lembar Siswa</button></div>`;
+ document.getElementById("detailContent").innerHTML=h;document.getElementById("detailPanel").classList.remove("hidden");document.getElementById("detailPanel").scrollIntoView({behavior:"smooth"});
+}
+function saveNotes(id){let s=clsData().students.find(x=>x.id===id);s.notes=document.getElementById("note_"+id).value;s.follow=document.getElementById("follow_"+id).value;saveAll(false);alert("Catatan tersimpan.");}
+function closeDetail(){document.getElementById("detailPanel").classList.add("hidden")}
+function printDetail(id){window.print()}
+function downloadBackup(){saveAll(false);let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});downloadBlob(blob,`Cadangan_Asesmen_Kokurikuler_${db.meta.year||"data"}.json`);}
+function restoreBackup(e){let file=e.target.files[0];if(!file)return;let reader=new FileReader();reader.onload=()=>{try{let data=JSON.parse(reader.result);if(!data.classes)throw Error();if(!confirm("Pulihkan cadangan? Data aplikasi saat ini akan diganti."))return;db=data;localStorage.setItem(STORE,JSON.stringify(db));document.getElementById("school").value=db.meta.school||"";document.getElementById("year").value=db.meta.year||"";document.getElementById("period").value=db.meta.period||"";refresh();alert("Cadangan berhasil dipulihkan.");}catch(err){alert("File cadangan tidak valid.");}};reader.readAsText(file);e.target.value="";}
+function clearCurrentClass(){if(!confirm("Yakin menghapus seluruh siswa, nilai, dan catatan kelas "+currentClass+"? Tindakan ini tidak dapat dibatalkan kecuali memiliki cadangan."))return;delete db.classes[currentClass];saveAll(false);refresh();}
+function downloadBlob(blob,name){let a=document.createElement("a"),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);}
+function needXLSX(){if(!window.XLSX){alert("Library Excel belum termuat. Hubungkan perangkat ke internet, muat ulang halaman, lalu coba lagi.");return false;}return true;}
+function importStudents(e){let f=e.target.files[0];if(!f)return;if(!needXLSX())return;let r=new FileReader();r.onload=ev=>{try{let wb=XLSX.read(ev.target.result,{type:"array"}),rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:""});let added=0;rows.forEach(row=>{let keys=Object.keys(row),nameKey=keys.find(k=>/nama/i.test(k));if(!nameKey)return;let name=String(row[nameKey]).trim();if(!name)return;let nisKey=keys.find(k=>/nis/i.test(k));clsData().students.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),nis:nisKey?String(row[nisKey]):"",name,...blankScores()});added++;});saveAll(false);refresh();alert(added+" siswa berhasil diimpor.");}catch(err){alert("Gagal membaca Excel. Pastikan ada kolom Nama Peserta Didik.");}};r.readAsArrayBuffer(f);e.target.value="";}
+function downloadTemplate(){if(!needXLSX())return;let ws=XLSX.utils.aoa_to_sheet([["No","NIS/NISN","Nama Peserta Didik"],[1,"","Contoh Nama Siswa"]]);let wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Data Siswa");XLSX.writeFile(wb,"Template_Data_Siswa.xlsx");}
+function exportExcel(){if(!needXLSX())return;saveAll(false);let wb=XLSX.utils.book_new(),students=clsData().students,meta=db.meta;
+ const add=(name,rows)=>{let ws=XLSX.utils.aoa_to_sheet(rows);ws["!cols"]=rows[0].map((_,i)=>({wch:i===2?48:18}));XLSX.utils.book_append_sheet(wb,ws,name)};
+ add("Data Siswa",[["No","NIS/NISN","Nama Peserta Didik"],...students.map((s,i)=>[i+1,s.nis||"",s.name])]);
+ let oh=[["No","Nama Peserta Didik",...indicators[currentClass].flat().map((x,i)=>`O${i+1}: ${x}`)]];
+ students.forEach((s,i)=>oh.push([i+1,s.name,...s.obs]));add("Observasi Guru",oh);
+ let ph=[["No","Nama Peserta Didik",...performances[currentClass]]];students.forEach((s,i)=>ph.push([i+1,s.name,...s.perf]));add("Unjuk Kerja",ph);
+ let prh=[["No","Nama Peserta Didik",...products[currentClass]]];students.forEach((s,i)=>prh.push([i+1,s.name,...s.prod]));add("Produk",prh);
+ let rh=[["No","Nama Peserta Didik","Nilai Keimanan","Kategori","Nilai Kemandirian","Kategori","Nilai Kesehatan","Kategori","Nilai Observasi Keseluruhan","Nilai Unjuk Kerja","Nilai Produk","Status"]];
+ students.forEach((s,i)=>{let r=recap(s);rh.push([i+1,s.name,r.per[0],category(r.per[0]),r.per[1],category(r.per[1]),r.per[2],category(r.per[2]),r.obs,r.perf,r.prod,status(s)?"Lengkap":"Belum lengkap"])});add("Rekap Nilai",rh);
+ add("Catatan dan Tindak Lanjut",[["No","Nama Peserta Didik","Catatan Guru","Tindak Lanjut"],...students.map((s,i)=>[i+1,s.name,s.notes||"",s.follow||""])]);
+ let file=`Asesmen_Kokurikuler_Kelas_${currentClass}_Tahun_Ajaran_${(meta.year||"").replace("/","-")}.xlsx`;XLSX.writeFile(wb,file);
+}
+init();
+</script>
+</body>
+</html>
