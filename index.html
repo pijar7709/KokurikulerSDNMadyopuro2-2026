@@ -55,7 +55,7 @@ footer{padding:15px;text-align:center;color:var(--muted);font-size:12px}
  <section class="toolbar no-print">
   <div class="field"><label for="school">Nama Sekolah</label><input id="school" placeholder="Nama sekolah"></div>
   <div class="field"><label for="year">Tahun Ajaran</label><input id="year" value="2026/2027"></div>
-  <div class="field"><label for="classSelect">Pilih Kelas</label><select id="classSelect"><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3">Kelas 3</option><option value="4">Kelas 4</option><option value="5A">Kelas 5A</option><option value="5B">Kelas 5B</option><option value="6A">Kelas 6A</option><option value="6B">Kelas 6B</option></select></div>
+  <div class="field"><label for="classSelect">Pilih Kelas</label><select id="classSelect"><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3">Kelas 3</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6">Kelas 6</option></select></div>
   <div class="field"><label for="period">Periode Asesmen</label><input id="period" placeholder="Contoh: Semester 1"></div>
   <div class="actions">
    <button class="green" onclick="saveAll()">Simpan</button>
@@ -84,9 +84,9 @@ footer{padding:15px;text-align:center;color:var(--muted);font-size:12px}
    <p id="dashSchool">Nama sekolah belum diisi.</p>
    <div class="note">Pilih kelas pada bagian atas. Indikator observasi, unjuk kerja, dan produk akan menyesuaikan kelas yang dipilih. Masukkan nilai 1–4; kolom yang belum dinilai dibiarkan kosong.</div>
    <div class="cards">
-    <div class="card"><b>1. Keimanan &amp; Ketakwaan</b><span class="smallmuted">2 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
-    <div class="card"><b>2. Kemandirian</b><span class="smallmuted">2 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
-    <div class="card"><b>3. Kesehatan</b><span class="smallmuted">2 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
+    <div class="card"><b>1. Keimanan &amp; Ketakwaan</b><span class="smallmuted">4 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
+    <div class="card"><b>2. Kemandirian</b><span class="smallmuted">4 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
+    <div class="card"><b>3. Kesehatan</b><span class="smallmuted">4 indikator observasi, 1 unjuk kerja, 1 produk</span></div>
    </div>
   </section>
   <section class="panel"><h2>Petunjuk singkat</h2>
@@ -119,7 +119,7 @@ footer{padding:15px;text-align:center;color:var(--muted);font-size:12px}
  <main id="input" class="tab hidden">
   <section class="panel">
    <h2>Input Asesmen Satu Kelas – Kelas <span class="classLabel"></span></h2>
-   <div class="note">Cukup nilai 6 indikator observasi (2 per aspek), ditambah 3 unjuk kerja dan 3 produk sebagai bukti pendukung. Masukkan skor 1–4; tekan Tab untuk berpindah kolom. Kolom kosong berarti belum dinilai.</div>
+   <div class="note">Masukkan skor 1, 2, 3, atau 4. Tekan Tab untuk berpindah kolom. Kolom kosong berarti belum dinilai. Gunakan layar komputer dan geser tabel ke samping untuk melihat semua indikator.</div>
    <div class="actions no-print" style="margin-bottom:10px">
     <input id="searchStudent" placeholder="Cari nama siswa..." oninput="renderInput()" style="max-width:250px">
     <select id="completionFilter" onchange="renderInput()"><option value="all">Semua siswa</option><option value="incomplete">Belum lengkap</option><option value="complete">Sudah lengkap</option></select>
@@ -179,34 +179,34 @@ footer{padding:15px;text-align:center;color:var(--muted);font-size:12px}
 <script>
 const indicators = {
 1:[
-["Mengikuti kegiatan ibadah/doa sesuai agama atau keyakinan dengan tertib.","Menunjukkan rasa syukur serta bersikap baik kepada guru dan teman."],
-["Berusaha menyiapkan dan merapikan perlengkapan sendiri.","Menyelesaikan tugas sederhana dengan sedikit bantuan."],
-["Menjaga kebersihan diri, seperti mencuci tangan.","Mengikuti kegiatan fisik dan menjaga kebersihan lingkungan."]
+["Mengikuti kegiatan ibadah sesuai agama/keyakinan dengan tertib.","Menunjukkan rasa syukur melalui ucapan dan tindakan sederhana.","Menunjukkan perilaku baik kepada guru dan teman.","Menghargai dan menjaga ciptaan Tuhan."],
+["Berusaha melakukan tugas sederhana sendiri.","Mampu merapikan dan menjaga barang pribadi.","Menyelesaikan tugas sederhana.","Mencoba terlebih dahulu sebelum meminta bantuan."],
+["Menjaga kebersihan diri.","Mempraktikkan kebiasaan hidup bersih dan sehat.","Mengikuti aktivitas fisik dengan baik.","Menjaga kebersihan lingkungan."]
 ],
 2:[
-["Mengikuti kegiatan ibadah/doa sesuai agama atau keyakinan dengan tertib.","Menunjukkan rasa syukur dan perilaku santun kepada orang lain."],
-["Menyiapkan perlengkapan belajar secara mandiri.","Menyelesaikan tugas dan merapikan barang setelah digunakan."],
-["Menerapkan kebiasaan hidup bersih dan sehat.","Aktif bergerak serta ikut menjaga kebersihan lingkungan."]
+["Mengikuti kegiatan ibadah sesuai agama/keyakinan dengan tertib.","Menunjukkan rasa syukur melalui ucapan dan tindakan.","Menunjukkan perilaku santun dan menghargai orang lain.","Menunjukkan kepedulian terhadap ciptaan Tuhan."],
+["Menyiapkan perlengkapan sendiri.","Menyelesaikan tugas tanpa selalu bergantung pada orang lain.","Menjaga dan merapikan barang milik sendiri.","Berusaha terlebih dahulu sebelum meminta bantuan."],
+["Menjaga kebersihan diri.","Menerapkan kebiasaan hidup bersih dan sehat.","Mengikuti aktivitas fisik dengan baik.","Menjaga kebersihan lingkungan."]
 ],
 3:[
-["Melaksanakan kegiatan ibadah/doa sesuai agama atau keyakinan dengan tertib.","Menunjukkan rasa syukur, kejujuran, dan sikap menghargai."],
-["Mengatur keperluan pribadi sebelum kegiatan.","Menyelesaikan tugas sampai tuntas dan bertanggung jawab."],
-["Menjaga kebersihan diri dan memilih kebiasaan sehat.","Aktif mengikuti kegiatan fisik dan menjaga lingkungan."]
+["Mengikuti kegiatan ibadah sesuai agama/keyakinan dengan tertib.","Menunjukkan rasa syukur dalam perkataan dan perbuatan.","Membiasakan perilaku jujur, santun, dan menghargai orang lain.","Menunjukkan kepedulian terhadap lingkungan sebagai ciptaan Tuhan."],
+["Menyiapkan dan mengatur keperluan sendiri.","Melaksanakan tugas sampai selesai dengan tanggung jawab.","Menjaga barang pribadi dan fasilitas bersama.","Berani mencoba dan mencari solusi sebelum meminta bantuan."],
+["Menjaga kebersihan diri secara sadar.","Memilih dan menerapkan kebiasaan hidup sehat.","Aktif mengikuti kegiatan fisik.","Berperan dalam menjaga kebersihan lingkungan."]
 ],
 4:[
-["Melaksanakan kegiatan ibadah sesuai agama atau keyakinan dengan kesadaran.","Menunjukkan rasa syukur dan kepedulian kepada sesama."],
-["Merencanakan dan mengatur tugas atau kebutuhan pribadi.","Menyelesaikan tugas dengan tanggung jawab tanpa selalu diingatkan."],
-["Menerapkan pola hidup bersih dan sehat.","Berpartisipasi aktif menjaga kebugaran dan kebersihan lingkungan."]
+["Melaksanakan kegiatan ibadah sesuai agama/keyakinan dengan kesadaran.","Menunjukkan rasa syukur melalui perilaku positif.","Menunjukkan kejujuran, tanggung jawab, dan sikap menghargai.","Menunjukkan kepedulian terhadap sesama dan lingkungan."],
+["Merencanakan kebutuhan dan tugas pribadi.","Menyelesaikan tugas dengan tanggung jawab.","Mengelola dan menjaga barang pribadi.","Mampu mengambil keputusan sederhana secara mandiri."],
+["Menjaga kebersihan dan kesehatan diri.","Menerapkan pola hidup sehat dalam kegiatan sehari-hari.","Berpartisipasi aktif dalam kegiatan fisik.","Bertanggung jawab terhadap kebersihan lingkungan."]
 ],
 5:[
-["Melaksanakan kegiatan ibadah sesuai agama atau keyakinan dengan tanggung jawab.","Mewujudkan rasa syukur melalui perilaku baik dan kepedulian."],
-["Merencanakan kegiatan dan mengatur waktu secara mandiri.","Menyelesaikan tugas serta mengatasi kendala sederhana."],
-["Memilih kebiasaan yang mendukung kesehatan diri.","Berinisiatif menjaga kebugaran dan lingkungan sehat."]
+["Melaksanakan kegiatan ibadah sesuai agama/keyakinan dengan kesadaran dan tanggung jawab.","Menunjukkan rasa syukur melalui perilaku nyata.","Menunjukkan integritas, kesantunan, dan kepedulian.","Menunjukkan tanggung jawab dalam menjaga lingkungan dan sesama."],
+["Mampu merencanakan dan mengatur tugas pribadi.","Menyelesaikan tugas secara konsisten dan bertanggung jawab.","Mampu mengatur waktu dan perlengkapan.","Mampu mengambil keputusan dan menyelesaikan masalah sederhana secara mandiri."],
+["Memahami dan menerapkan pola hidup bersih dan sehat.","Mampu memilih kebiasaan yang mendukung kesehatan.","Aktif dan bertanggung jawab dalam kegiatan fisik.","Berinisiatif menjaga kebersihan lingkungan."]
 ],
 6:[
-["Melaksanakan kegiatan ibadah sesuai agama atau keyakinan secara sadar dan bertanggung jawab.","Menunjukkan rasa syukur, integritas, dan kepedulian dalam tindakan."],
-["Merencanakan kebutuhan, waktu, dan prioritas secara mandiri.","Menyelesaikan tugas dan mencari solusi saat menghadapi kendala."],
-["Konsisten menerapkan pola hidup bersih dan sehat.","Berinisiatif mengajak atau membantu menjaga lingkungan sehat."]
+["Melaksanakan kegiatan ibadah sesuai agama/keyakinan secara sadar dan bertanggung jawab.","Menerapkan rasa syukur dalam tindakan nyata.","Menunjukkan integritas, tanggung jawab, dan sikap menghargai.","Menunjukkan kepedulian dan menjadi teladan positif bagi lingkungan sekitar."],
+["Mampu merencanakan kebutuhan dan kegiatan secara mandiri.","Menyelesaikan tugas dengan tanggung jawab dan konsisten.","Mampu mengatur waktu, perlengkapan, dan prioritas.","Mampu mengambil keputusan dan menyelesaikan masalah secara mandiri."],
+["Menerapkan pola hidup bersih dan sehat secara konsisten.","Mampu memilih tindakan yang mendukung kesehatan diri.","Menunjukkan kesadaran menjaga kebugaran tubuh.","Berinisiatif dan bertanggung jawab dalam menjaga lingkungan sehat."]
 ]};
 const labels=["Keimanan & Ketakwaan","Kemandirian","Kesehatan"];
 const performances={
@@ -227,21 +227,12 @@ const STORE="akuAnakHebatAssessment_v1";
 let db=loadDB(), currentClass="1";
 function loadDB(){try{return JSON.parse(localStorage.getItem(STORE))||{meta:{school:"",year:"2026/2027",period:""},classes:{}}}catch(e){return {meta:{school:"",year:"2026/2027",period:""},classes:{}}}}
 function clsData(){if(!db.classes[currentClass])db.classes[currentClass]={students:[]};return db.classes[currentClass]}
-function blankScores(){return {obs:Array(6).fill(""),perf:Array(3).fill(""),prod:Array(3).fill(""),notes:"",follow:""}}
+function blankScores(){return {obs:Array(12).fill(""),perf:Array(3).fill(""),prod:Array(3).fill(""),notes:"",follow:""}}
 function saveAll(show=true){
  db.meta={school:document.getElementById("school").value,year:document.getElementById("year").value,period:document.getElementById("period").value};
  try{localStorage.setItem(STORE,JSON.stringify(db));if(show)alert("Data berhasil disimpan pada browser ini.");updateDashboard()}catch(e){alert("Penyimpanan gagal. Kapasitas browser mungkin penuh. Segera unduh cadangan.");}
 }
-function migrateObservationScores(){
- let changed=false;
- Object.values(db.classes||{}).forEach(c=>(c.students||[]).forEach(s=>{
-  if(Array.isArray(s.obs)&&s.obs.length===12){s.obs=[s.obs[0],s.obs[1],s.obs[4],s.obs[5],s.obs[8],s.obs[9]];changed=true;}
-  else if(!Array.isArray(s.obs)){s.obs=Array(6).fill("");changed=true;}
- }));
- if(changed){try{localStorage.setItem(STORE,JSON.stringify(db));}catch(e){}}
-}
 function init(){
- migrateObservationScores();
  document.getElementById("school").value=db.meta.school||"";
  document.getElementById("year").value=db.meta.year||"2026/2027";
  document.getElementById("period").value=db.meta.period||"";
@@ -255,32 +246,32 @@ function renderStudents(){let tb=document.getElementById("studentRows");if(!tb)r
 function updateStudent(id,key,val){let s=clsData().students.find(x=>x.id===id);if(s){s[key]=val;saveAll(false);}}
 function deleteStudent(id){if(!confirm("Hapus siswa beserta seluruh nilai dan catatannya?"))return;clsData().students=clsData().students.filter(s=>s.id!==id);saveAll(false);refresh();}
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function status(s){let all=[...(s.obs||[]),...(s.perf||[]),...(s.prod||[])];return all.length===12&&all.every(v=>v!==""&&v!==null&&v!==undefined);}
+function status(s){let all=[...(s.obs||[]),...(s.perf||[]),...(s.prod||[])];return all.length===18&&all.every(v=>v!==""&&v!==null&&v!==undefined);}
 function scoreInput(sid,type,index,val){let s=clsData().students.find(x=>x.id===sid);if(!s)return;let n=val===""?"":Number(val);if(n!==""&&(!Number.isInteger(n)||n<1||n>4)){alert("Nilai hanya boleh 1, 2, 3, atau 4.");renderInput();return;}s[type][index]=n;localStorage.setItem(STORE,JSON.stringify(db));updateDashboard();}
 function renderInput(){
  let host=document.getElementById("inputTable");if(!host)return;let q=(document.getElementById("searchStudent")?.value||"").toLowerCase(),f=document.getElementById("completionFilter")?.value||"all";
  let students=clsData().students.filter(s=>s.name.toLowerCase().includes(q)).filter(s=>f==="all"||(f==="complete"?status(s):!status(s)));
- let h='<table><thead><tr><th rowspan="2">No</th><th class="name" rowspan="2">Nama Peserta Didik</th><th class="grouphead" colspan="6">OBSERVASI GURU</th><th class="grouphead" colspan="3">UNJUK KERJA</th><th class="grouphead" colspan="3">PRODUK</th></tr><tr>';
- labels.forEach((l,g)=>{for(let i=0;i<2;i++)h+=`<th title="${esc(indicators[currentClass][g][i])}">O${g*2+i+1}<br><span class="smallmuted">${["I","II"][i]}</span></th>`});
+ let h='<table><thead><tr><th rowspan="2">No</th><th class="name" rowspan="2">Nama Peserta Didik</th><th class="grouphead" colspan="12">OBSERVASI GURU</th><th class="grouphead" colspan="3">UNJUK KERJA</th><th class="grouphead" colspan="3">PRODUK</th></tr><tr>';
+ labels.forEach((l,g)=>{for(let i=0;i<4;i++)h+=`<th title="${esc(indicators[currentClass][g][i])}">O${g*4+i+1}<br><span class="smallmuted">${["I","II","III","IV"][i]}</span></th>`});
  for(let i=0;i<3;i++)h+=`<th title="${esc(performances[currentClass][i])}">UK${i+1}</th>`;
  for(let i=0;i<3;i++)h+=`<th title="${esc(products[currentClass][i])}">P${i+1}</th>`;
  h+='</tr></thead><tbody>';
  students.forEach((s,idx)=>{h+=`<tr><td>${idx+1}</td><td class="name">${esc(s.name)}</td>`;
- for(let i=0;i<6;i++)h+=scoreCell(s,"obs",i);
+ for(let i=0;i<12;i++)h+=scoreCell(s,"obs",i);
  for(let i=0;i<3;i++)h+=scoreCell(s,"perf",i);
  for(let i=0;i<3;i++)h+=scoreCell(s,"prod",i);
  h+='</tr>'});
- if(!students.length)h+='<tr><td colspan="14">Tidak ada siswa yang sesuai. Periksa data siswa atau filter.</td></tr>';
+ if(!students.length)h+='<tr><td colspan="20">Tidak ada siswa yang sesuai. Periksa data siswa atau filter.</td></tr>';
  h+='</tbody></table>';host.innerHTML=h;
 }
 function scoreCell(s,type,i){let v=s[type]?.[i]??"";return `<td><input class="score" type="number" min="1" max="4" step="1" inputmode="numeric" value="${v}" aria-label="${type} ${i+1} ${esc(s.name)}" onchange="scoreInput('${s.id}','${type}',${i},this.value)" onblur="saveAll(false)"></td>`;}
 function avg(arr){let a=(arr||[]).filter(x=>x!==""&&x!==null&&x!==undefined).map(Number);return a.length?Math.round((a.reduce((p,c)=>p+c,0)/(a.length*4))*100):null;}
 function category(v){if(v===null)return "Belum dinilai";if(v>=86)return "Sangat Berkembang";if(v>=76)return "Berkembang Sesuai Harapan";if(v>=66)return "Mulai Berkembang";return "Belum Berkembang";}
-function recap(s){let per=[avg(s.obs.slice(0,2)),avg(s.obs.slice(2,4)),avg(s.obs.slice(4,6))];return {per,obs:avg(s.obs),perf:avg(s.perf),prod:avg(s.prod)}}
+function recap(s){let per=[avg(s.obs.slice(0,4)),avg(s.obs.slice(4,8)),avg(s.obs.slice(8,12))];return {per,obs:avg(s.obs),perf:avg(s.perf),prod:avg(s.prod)}}
 function renderRecap(){let tb=document.getElementById("recapRows");if(!tb)return;let q=(document.getElementById("searchRecap")?.value||"").toLowerCase();tb.innerHTML="";clsData().students.filter(s=>s.name.toLowerCase().includes(q)).forEach((s,i)=>{let r=recap(s),tr=document.createElement("tr");tr.innerHTML=`<td>${i+1}</td><td class="name">${esc(s.name)}</td>${r.per.map(v=>`<td>${v??"—"}</td>`).join("")}<td>${r.obs??"—"}</td><td>${r.perf??"—"}</td><td>${r.prod??"—"}</td><td>${status(s)?'<span class="good">Lengkap</span>':'<span class="bad">Belum lengkap</span>'}</td><td class="no-print"><button class="small" onclick="showDetail('${s.id}')">Detail</button></td>`;tb.appendChild(tr)});if(!tb.children.length)tb.innerHTML='<tr><td colspan="10">Belum ada data siswa.</td></tr>';}
 function updateDashboard(){let a=clsData().students,done=a.filter(status).length;document.getElementById("statStudents").textContent=a.length;document.getElementById("statComplete").textContent=done;document.getElementById("statPending").textContent=a.length-done;}
 function showDetail(id){let s=clsData().students.find(x=>x.id===id);if(!s)return;let r=recap(s);document.getElementById("detailTitle").textContent="Detail: "+s.name;let h=`<p><b>Kelas:</b> ${currentClass} · <b>NIS/NISN:</b> ${esc(s.nis||"-")}</p><h3>Nilai karakter berdasarkan observasi</h3><table style="min-width:0"><tr><th>Karakter</th><th>Nilai</th><th>Kategori</th></tr>${labels.map((l,i)=>`<tr><td>${l}</td><td>${r.per[i]??"Belum lengkap"}</td><td>${category(r.per[i])}</td></tr>`).join("")}</table><h3>Rincian observasi</h3>`;
- labels.forEach((l,g)=>{h+=`<h3>${l}</h3><table style="min-width:0"><tr><th>Indikator</th><th>Skor</th></tr>${indicators[currentClass][g].map((v,i)=>`<tr><td style="text-align:left;white-space:normal">${esc(v)}</td><td>${s.obs[g*2+i]||"—"}</td></tr>`).join("")}</table>`});
+ labels.forEach((l,g)=>{h+=`<h3>${l}</h3><table style="min-width:0"><tr><th>Indikator</th><th>Skor</th></tr>${indicators[currentClass][g].map((v,i)=>`<tr><td style="text-align:left;white-space:normal">${esc(v)}</td><td>${s.obs[g*4+i]||"—"}</td></tr>`).join("")}</table>`});
  h+='<h3>Unjuk kerja dan produk</h3><table style="min-width:0"><tr><th>Komponen</th><th>Deskripsi</th><th>Skor</th></tr>';
  for(let i=0;i<3;i++)h+=`<tr><td>Unjuk kerja – ${labels[i]}</td><td style="text-align:left;white-space:normal">${esc(performances[currentClass][i])}</td><td>${s.perf[i]||"—"}</td></tr><tr><td>Produk – ${labels[i]}</td><td style="text-align:left;white-space:normal">${esc(products[currentClass][i])}</td><td>${s.prod[i]||"—"}</td></tr>`;
  h+=`</table><h3>Catatan guru</h3><textarea id="note_${id}" placeholder="Kekuatan atau perkembangan positif siswa...">${esc(s.notes||"")}</textarea><h3>Tindak lanjut</h3><textarea id="follow_${id}" placeholder="Rencana pendampingan atau penguatan...">${esc(s.follow||"")}</textarea><div class="actions no-print" style="margin-top:10px"><button onclick="saveNotes('${id}')">Simpan Catatan</button><button class="secondary" onclick="printDetail('${id}')">Cetak Lembar Siswa</button></div>`;
