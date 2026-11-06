@@ -39,6 +39,7 @@ td input.nameinput{width:190px}
 .pill{display:inline-block;border-radius:20px;padding:4px 9px;background:#edf3f6;color:#35566a;font-size:12px}
 .good{color:#167653;font-weight:bold}.bad{color:#a34b36;font-weight:bold}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.guide{border:1px solid var(--line);border-radius:9px;padding:12px;margin:12px 0;background:#fbfdfe}.guide h3{margin:4px 0 8px;color:var(--navy)}.guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.guide-card{border:1px solid var(--line);border-radius:8px;padding:10px;background:white;min-width:0}.guide-card ol{padding-left:22px;margin:6px 0}.guide-card li{margin:6px 0;white-space:normal}.guide-card b{color:var(--navy)}.guide-toggle{cursor:pointer;color:var(--blue);font-weight:bold;margin:4px 0 8px}.guide details{margin-top:8px}@media(max-width:760px){.guide-grid{grid-template-columns:1fr}}
 .card{border:1px solid var(--line);border-radius:9px;padding:12px}.card b{display:block;margin-bottom:5px}
 textarea{width:100%;min-height:65px}
 footer{padding:15px;text-align:center;color:var(--muted);font-size:12px}
@@ -120,6 +121,7 @@ footer{padding:15px;text-align:center;color:var(--muted);font-size:12px}
   <section class="panel">
    <h2>Input Asesmen Satu Kelas – Kelas <span class="classLabel"></span></h2>
    <div class="note">Cukup nilai 6 indikator observasi (2 per aspek), ditambah 3 unjuk kerja dan 3 produk sebagai bukti pendukung. Masukkan skor 1–4; tekan Tab untuk berpindah kolom. Kolom kosong berarti belum dinilai.</div>
+   <div id="indicatorGuide" class="guide"></div>
    <div class="actions no-print" style="margin-bottom:10px">
     <input id="searchStudent" placeholder="Cari nama siswa..." oninput="renderInput()" style="max-width:250px">
     <select id="completionFilter" onchange="renderInput()"><option value="all">Semua siswa</option><option value="incomplete">Belum lengkap</option><option value="complete">Sudah lengkap</option></select>
@@ -269,7 +271,27 @@ function deleteStudent(id){if(!confirm("Hapus siswa beserta seluruh nilai dan ca
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 function status(s){let all=[...(s.obs||[]),...(s.perf||[]),...(s.prod||[])];return all.length===12&&all.every(v=>v!==""&&v!==null&&v!==undefined);}
 function scoreInput(sid,type,index,val){let s=clsData().students.find(x=>x.id===sid);if(!s)return;let n=val===""?"":Number(val);if(n!==""&&(!Number.isInteger(n)||n<1||n>4)){alert("Nilai hanya boleh 1, 2, 3, atau 4.");renderInput();return;}s[type][index]=n;localStorage.setItem(STORE,JSON.stringify(db));updateDashboard();}
+function renderIndicatorGuide(){
+ let host=document.getElementById("indicatorGuide");if(!host)return;
+ let h=`<h3>Deskripsi Indikator Penilaian – Kelas ${currentClass}</h3>
+ <p class="smallmuted">Gunakan deskripsi ini sebagai panduan saat memberi skor. Kode O, UK, dan P pada tabel nilai merujuk pada daftar berikut.</p>
+ <div class="guide-grid">`;
+ labels.forEach((label,g)=>{
+  h+=`<div class="guide-card"><b>${g+1}. ${label}</b><ol>
+  <li><b>O${g*2+1}.</b> ${esc(indicators[currentClass][g][0])}</li>
+  <li><b>O${g*2+2}.</b> ${esc(indicators[currentClass][g][1])}</li>
+  </ol><p class="smallmuted">Skor observasi guru: 1–4 untuk setiap indikator.</p></div>`;
+ });
+ h+=`</div><details><summary class="guide-toggle">Lihat deskripsi unjuk kerja dan produk</summary><div class="guide-grid">`;
+ labels.forEach((label,i)=>{
+  h+=`<div class="guide-card"><b>${label}</b><p><b>UK${i+1} – Unjuk kerja:</b><br>${esc(performances[currentClass][i])}</p>
+  <p><b>P${i+1} – Produk:</b><br>${esc(products[currentClass][i])}</p></div>`;
+ });
+ h+=`</div></details>`;
+ host.innerHTML=h;
+}
 function renderInput(){
+ renderIndicatorGuide();
  let host=document.getElementById("inputTable");if(!host)return;let q=(document.getElementById("searchStudent")?.value||"").toLowerCase(),f=document.getElementById("completionFilter")?.value||"all";
  let students=clsData().students.filter(s=>s.name.toLowerCase().includes(q)).filter(s=>f==="all"||(f==="complete"?status(s):!status(s)));
  let h='<table><thead><tr><th rowspan="2">No</th><th class="name" rowspan="2">Nama Peserta Didik</th><th class="grouphead" colspan="6">OBSERVASI GURU</th><th class="grouphead" colspan="3">UNJUK KERJA</th><th class="grouphead" colspan="3">PRODUK</th></tr><tr>';
